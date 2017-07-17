@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.Hike;
 import data.HikesDAO;
 import data.HikesDaoImpl;
 
@@ -73,6 +74,45 @@ public class HikesController {
 		mv.addObject("sortedHikes", dao.getListOfHikesByDistanceFromDenver(distance));
 		return mv;
 	}
+	
+	@RequestMapping(path = "route.do", params = {"name", "difficulty", "length", "distanceFromDenver", "fact"}, method=RequestMethod.POST)
+	public ModelAndView addHike(@RequestParam("name") String name, @RequestParam("difficulty") String difficulty, @RequestParam("length") String lengthStr, @RequestParam("distanceFromDenver") String distanceStr, @RequestParam("fact") String fact) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("HikesView.jsp");
+		double length;
+		double distance;
+		if (lengthStr != null && ! lengthStr.equals("")) {
+			length = Double.parseDouble(lengthStr);
+		}
+		else {
+			length = 0;
+		}
+		if (distanceStr != null && ! distanceStr.equals("")) {
+			distance = Double.parseDouble(distanceStr);
+		}
+		else {
+			distance = 0;
+		}
+		dao.addHike(new Hike(name, length, difficulty, distance, fact));
+		mv.addObject("hike", dao.getHikeByName(name));
+		return mv;
+	}
 
+	@RequestMapping(path = "editHikes.do", method = RequestMethod.GET)
+	public ModelAndView editHikesList() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("editHikes.jsp");
+		mv.addObject("allHikes", dao.getAllHikes());
+		return mv;
+	}
+	
+	@RequestMapping(path = "editSingleHike.do", params = "hikeToEdit", method = RequestMethod.GET)
+	public ModelAndView editSingleHike(@RequestParam("hikeToEdit") String hike) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("editSingleHike.jsp");
+		mv.addObject("hike", dao.getHikeByName(hike));
+		return mv;
+	}
+	
 	
 }

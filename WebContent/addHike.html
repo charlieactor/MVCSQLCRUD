@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add a Hike</title>
+</head>
+<body>
+
+   <p>Add a hike:</p>
+   <form action="route.do" method="POST">
+   		Hike Name<br>
+		<input type="Text" name="name" /> 
+		<br>Hike Difficulty<br>
+		<select name="difficulty">
+		<option value="easy" selected >Easy</option>
+			<option value="easy-moderate">Easy-Moderate</option>
+			<option value="moderate">Moderate</option>
+			<option value="moderate-hard">Moderate-Hard</option>
+			<option value="hard">Hard</option>
+			<option value="hard-expert">Hard-Expert</option>
+			<option value="expert">Expert</option>
+		</select>
+		<br>Hike Length<br>
+		<input type="Number" name="length" /> 
+		<br>Hike's Distance from Denver<br>
+		<input type="Number" name="distanceFromDenver" />
+		<br>Hike fact<br> 
+		<input type="Text" name="fact" /><br/> 
+		<input type="submit" value="Submit" /><br/>
+	</form> 
+
+</body>
+</html>

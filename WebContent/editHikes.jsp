@@ -5,20 +5,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Top Hikes Near Denver</title>
+<title>Edit Hikes</title>
 </head>
 <body>
-	<h2>Top Hikes Near Denver</h2>
-	<hr>
+<h2>Select a hike you'd like to edit:</h2>
+<c:choose>
+	  <c:when test="${! empty allHikes}">
+     	<form action="editSingleHike.do" method="GET">
+     	<select name="hikeToEdit">
      <c:forEach items="${allHikes}" var="hike">
-     	<h3>${hike.name}</h3>
-       <ul>
-       	  <li>${hike.name}</li>
-	      <li>${hike.difficulty}</li>
-	      <li>${hike.length} miles in length</li>
-	      <li>${hike.distanceFromDenver} miles from Denver</li>
-	      <li>${hike.fact}</li>
-       </ul> 
+     	<option value="${hike.name}">${hike.name}</option>
      </c:forEach>
+     	</select>
+     	<input type="submit" value="edit this hike">
+     	</form>
+     </c:when>
+     <c:otherwise>
+     	No hikes found.
+     </c:otherwise>
+     </c:choose>
 </body>
 </html>

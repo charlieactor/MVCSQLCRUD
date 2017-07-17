@@ -5,25 +5,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Hike Results</title>
+<title>Top Hikes Near Denver</title>
 </head>
 <body>
-	<h3>${hike.name}</h3>
-	<c:choose>
-	  <c:when test="${! empty hike}">
-	    <ul>
-	      <li>${hike.name}</li>
+<c:choose>
+	  <c:when test="${! empty sortedHikes}">
+     <c:forEach items="${sortedHikes}" var="hike">
+     	<h3>${hike.name}</h3>
+       <ul>
+       	  <li>${hike.name}</li>
 	      <li>${hike.difficulty}</li>
 	      <li>${hike.length} miles in length</li>
 	      <li>${hike.distanceFromDenver} miles from Denver</li>
 	      <li>${hike.fact}</li>
-	    </ul>
-	  </c:when>
-	  <c:otherwise>
-	   <p>Hike not found</p>
-	  </c:otherwise>
-	
-	</c:choose>
-	
+       </ul> 
+     </c:forEach>
+     </c:when>
+     <c:otherwise>
+     	No hikes found.
+     </c:otherwise>
+     </c:choose>
 </body>
 </html>

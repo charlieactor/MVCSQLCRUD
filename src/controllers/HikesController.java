@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.Hike;
@@ -14,9 +16,15 @@ import data.HikesDAO;
 import data.HikesDaoImpl;
 
 @Controller
+@SessionAttributes("allHikes")
 public class HikesController {
 	@Autowired
 	private HikesDAO dao;
+	
+	@ModelAttribute("allHikes")
+	public List<Hike> initAllHikes(){
+		return dao.getAllHikes();
+	}
 
 	@RequestMapping(path = "route.do", params = "name", method = RequestMethod.GET)
 	public ModelAndView getHikeByName(@RequestParam("name") String name) {
@@ -27,10 +35,10 @@ public class HikesController {
 	}
 
 	@RequestMapping(path = "seeAllHikes.do", method = RequestMethod.GET)
-	public ModelAndView seeAllHikes() {
+	public ModelAndView seeAllHikes(@ModelAttribute("allHikes") List<Hike> hikes) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("seeAllHikes.jsp");
-		mv.addObject("allHikes", dao.getAllHikes());
+		mv.addObject("allHikes", hikes);
 		return mv;
 	}
 
@@ -102,10 +110,10 @@ public class HikesController {
 	}
 
 	@RequestMapping(path = "editHikes.do", method = RequestMethod.GET)
-	public ModelAndView editHikesList() {
+	public ModelAndView editHikesList(@ModelAttribute("allHikes") List<Hike> hikes) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("editHikes.jsp");
-		mv.addObject("allHikes", dao.getAllHikes());
+		mv.addObject("allHikes", hikes);
 		return mv;
 	}
 	
@@ -144,12 +152,12 @@ public class HikesController {
 	}
 	
 	@RequestMapping(path = "deleteHike.do", params = "name", method = RequestMethod.POST)
-	public ModelAndView deleteHike(@RequestParam("name")String name) {
+	public ModelAndView deleteHike(@RequestParam("name")String name, @ModelAttribute("allHikes") List<Hike> hikes) {
 		ModelAndView mv = new ModelAndView();
 		dao.removeHike(dao.getHikeByName(name));
 		dao.rewriteFile();
 		mv.setViewName("redirect:seeAllHikes.do");
-		mv.addObject("allHikes", dao.getAllHikes());
+		mv.addObject("allHikes", hikes);
 		return mv;
 	}
 	

@@ -1,8 +1,10 @@
 package data;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,16 @@ public class HikesDaoImpl implements HikesDAO {
 				break;
 			}
 		}
+		if (h == null) {
+			for (Hike hike : allHikes) {
+				String hikeName = hike.getName().toLowerCase();
+				name = name.toLowerCase();
+				if (hikeName.startsWith(name)) {
+					h = hike;
+					break;
+				}
+			}
+		}
 		return h;
 	}
 
@@ -96,7 +108,11 @@ public class HikesDaoImpl implements HikesDAO {
 	@Override
 	public void addHike(Hike hike) {
 		allHikes.add(hike);
+	}
 
+	@Override
+	public void removeHike(Hike hike) {
+		allHikes.remove(hike);
 	}
 
 	public List<Hike> getAllHikes() {
@@ -105,6 +121,22 @@ public class HikesDaoImpl implements HikesDAO {
 
 	public void setAllHikes(List<Hike> allHikes) {
 		this.allHikes = allHikes;
+	}
+
+	@Override
+	public void rewriteFile() {
+		String path = wac.getServletContext().getRealPath(FILE_NAME);
+		try {
+			PrintWriter writer = new PrintWriter(path, "UTF-8");
+			for (int i = 0; i < allHikes.size(); i++) {
+				writer.println(allHikes.get(i).getName() + ", " + allHikes.get(i).getDifficulty() + ", "
+						+ allHikes.get(i).getLength() + ", " + allHikes.get(i).getDistanceFromDenver() + ", "
+						+ allHikes.get(i).getFact());
+			}
+			writer.close();
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 	}
 
 }

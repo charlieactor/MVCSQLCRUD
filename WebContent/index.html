@@ -2,26 +2,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link type="text/css" href="HikeSiteStyles.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
 <title>Top Hikes Near Denver</title>
 </head>
 <body>
-	<h3>Top Hikes Near Denver</h3>
-	<form action="seeAllHikes.do" method="GET">
-		<input type="submit" value="See The Top Hikes Near Denver!">
-	</form>
-	<a href="searchByName.html">Search By Name</a><br>
-	<a href="searchByDifficulty.html">Search By Difficulty</a><br>
-	<a href="searchByLength.html">Search By Hike Length</a><br>
-	<a href="searchByDistanceFromDenver.html">Search By Distance From Denver</a><br>
-	<a href="addHike.html">Add a hike!</a>
-		<form action="editHikes.do" method="GET">
-		<input type="submit" value="Edit Hikes">
-	</form>
-	
-	
-	<!-- <form action="route.do" method="GET">
-		<input type="text" name="data" /><br/> 
-		<input type="submit" value="Submit" /><br/>
-	</form> -->
+<div class="navbar-wrapper">
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <a href="index.html" class="navbar-brand"><span id="name">Top Hikes Near Denver</span></a>
+
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navHeaderCollapse" aria-expanded="false" aria-controls="navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="collapse navbar-collapse navHeaderCollapse">
+        <ul class="nav navbar-nav navbar-right">
+         <li><a href="seeAllHikes.do?">Top Hikes</a></li>
+         <li><a href="search.html">Search</a></li>
+         <li><a href="addHike.html">Add a Hike</a></li>
+         <li><a href="editHikes.do">Update and Delete Hikes</a></li>
+       </ul>
+      </div>
+   </div>
+  </div>
+</div>
+	<div class="bground">
+	<br><br>
+	<h1 id="out">Get Outside<br><br>Go Explore</h1>
+	<BR><BR>	<BR><BR><BR><BR><BR><BR>	<BR><BR><BR><BR>
+		</div>
 </body>
 </html>

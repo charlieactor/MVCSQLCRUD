@@ -1,0 +1,61 @@
+body {
+	/* position: relative; */
+}
+
+.bground {
+	margin-top: 20px;
+	background-image: url(images/hike.jpg);
+	position: absolute;
+	background-position: left top;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    opacity: 0.6;
+    z-index: -1;
+    background-attachment: fixed;
+}
+.header{
+	font-family: 'Lemonada', fantasy;
+	color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+#out {
+	text-align: center;
+	font-family: 'Lemonada', fantasy;
+	font-size: 100px;
+	 color: white;
+     text-shadow: 2px 2px 4px #000000;
+}
+.search {
+	margin-top: 40px;
+	margin-left: 10px;
+}
+p{
+	color: white;
+     text-shadow: 2px 2px 4px #000000;
+}
+.individual{
+	color: white;
+     text-shadow: 2px 2px 4px #000000;
+     text-decoration: underline;
+}
+.individual:visited{
+	color: white;
+     text-shadow: 2px 2px 4px #000000;
+     text-decoration: underline;
+}
+.individual:hover{
+	color: pink;
+	text-shadow: 2px 2px 4px #000000;
+	text-decoration: none;
+}
+ul {
+	color: white;
+     text-shadow: 2px 2px 4px #000000;
+}
+
+.allHikes {
+	margin-top: 40px;
+	margin-left: 10px;
+}

@@ -1,14 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link type="text/css" href="HikeSiteStyles.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
-<title>Edit Hike</title>
+<title>Search Hikes</title>
 </head>
 <body>
 <div class="navbar-wrapper">
@@ -32,48 +29,44 @@
    </div>
   </div>
 </div>
-	<div class="bground">
+<div class="bground">
 
 	<div class="search">
-	<h2 class="header">Current info for ${hike.name}:</h2>
-	<ul>
-		<li>${hike.name}</li>
-		<li>${hike.difficulty}</li>
-		<li>${hike.length} miles in length</li>
-		<li>${hike.distanceFromDenver} miles from Denver</li>
-		<li>${hike.fact}</li>
-	</ul>
-	<hr>
-	<h3 class="header">Edit Hike:</h3>
-	<form action="updateHike.do" method=POST>
-		<p>Hike Name</p>
-		<input type="text" name="name" value="${hike.name}"><br>
-		<p>Hike Difficulty</p>
+	   <h2 class="header">Search By Hike Name:</h2>
+	   <hr>
+   <form action="route.do" method="GET">
+		<input type="text" name="name" />
+		<input type="submit" value="Submit" /><br><br>
+	</form> 
+	
+	
+   <p>Search By Hike Difficulty:</p>
+   <form action="route.do" method="POST">
 		<select name="difficulty">
-			<option value="easy">Easy</option>
+			<option value="easy" selected >Easy</option>
 			<option value="easy-moderate">Easy-Moderate</option>
 			<option value="moderate">Moderate</option>
 			<option value="moderate-hard">Moderate-Hard</option>
 			<option value="hard">Hard</option>
 			<option value="hard-expert">Hard-Expert</option>
 			<option value="expert">Expert</option>
-		</select><br>
-		<p>Hike Length (in miles) </p>
-		<input type="text" name="length" value="${hike.length}"><br>
-		<p>Hike distance from Denver (in miles) </p>
-		<input type="text" name="distance" value="${hike.distanceFromDenver}"><br>
-		<p>Hike fact</p>
-		<input type="text" name="fact" value="${hike.fact}"><br><br>
-		<input type="submit" value="Update this hike">
-	</form>
-	<hr>
-	<h3 class="header">Delete Hike:</h3>
-	<form action="deleteHike.do" method=POST>
-		<input type="hidden", name="name" value="${hike.name}">
-		<input type="submit", value="Delete This Hike">
-	</form>
-	</div>
-	<BR><BR>	<BR><BR><BR><BR><BR>
+		</select>   
+		<input type="submit" value="Submit" /><br><br>
+	</form> 
+	 <p>Search By Hike Distance From Denver (Miles):</p>
+   <form action="route.do" method="GET">
+		<input type="number" name="distance" /> 
+		<input type="submit" value="Submit" /><br><br>
+	</form> 
+	
+	 <p>Search By Hike Length (Miles):</p>
+   <form action="route.do" method="GET">
+		<input type="number" name="length" /> 
+		<input type="submit" value="Submit" /><br><br>
+	</form> 
+</div>
+<BR><BR>	<BR><BR><BR><BR><BR><BR>	<BR><BR><BR><BR>
+<BR><BR>	<BR><BR>
 </div>
 </body>
 </html>

@@ -2,15 +2,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link type="text/css" href="HikeSiteStyles.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
 <title>Add a Hike</title>
 </head>
 <body>
+<div class="navbar-wrapper">
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <a href="index.html" class="navbar-brand"><span id="name">Top Hikes Near Denver</span></a>
 
-   <p>Add a hike:</p>
-   <form action="route.do" method="POST">
-   		Hike Name<br>
-		<input type="Text" name="name" /> 
-		<br>Hike Difficulty<br>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navHeaderCollapse" aria-expanded="false" aria-controls="navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="collapse navbar-collapse navHeaderCollapse">
+        <ul class="nav navbar-nav navbar-right">
+         <li><a href="seeAllHikes.do?">Top Hikes</a></li>
+         <li><a href="search.html">Search</a></li>
+         <li><a href="addHike.html">Add a Hike</a></li>
+         <li><a href="editHikes.do">Update and Delete Hikes</a></li>
+       </ul>
+      </div>
+   </div>
+  </div>
+</div>
+	<div class="bground">
+	
+   <div class="search">
+   <h2 class="header">Add a Hike</h2>
+   <hr>
+   <form class="add" action="route.do" method="POST">
+   		<p>Hike Name</p>
+		<input type="Text" name="name" /> <br><br>
+		<p>Hike Difficulty</p>
 		<select name="difficulty">
 		<option value="easy" selected >Easy</option>
 			<option value="easy-moderate">Easy-Moderate</option>
@@ -19,15 +46,18 @@
 			<option value="hard">Hard</option>
 			<option value="hard-expert">Hard-Expert</option>
 			<option value="expert">Expert</option>
-		</select>
-		<br>Hike Length<br>
-		<input type="Number" name="length" /> 
-		<br>Hike's Distance from Denver<br>
-		<input type="Number" name="distanceFromDenver" />
-		<br>Hike fact<br> 
-		<input type="Text" name="fact" /><br/> 
-		<input type="submit" value="Submit" /><br/>
+		</select><br><br>
+		<p>Hike Length</p>
+		<input type="Number" name="length" /> <br><br>
+		<p>Hike's Distance from Denver</p>
+		<input type="Number" name="distanceFromDenver" /><br><br>
+		<p>Hike fact</p> 
+		<input type="Text" name="fact" /><br><br> 
+		
+		<input type="submit" value="Submit" /><br>
 	</form> 
-
+	<BR><BR>	<BR><BR><BR><BR><BR><BR>	<BR><BR>
+</div>
+</div>
 </body>
 </html>

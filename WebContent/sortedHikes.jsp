@@ -5,13 +5,40 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link type="text/css" href="HikeSiteStyles.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
 <title>Top Hikes Near Denver</title>
 </head>
 <body>
+<div class="navbar-wrapper">
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <a href="index.html" class="navbar-brand"><span id="name">Top Hikes Near Denver</span></a>
+
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navHeaderCollapse" aria-expanded="false" aria-controls="navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="collapse navbar-collapse navHeaderCollapse">
+        <ul class="nav navbar-nav navbar-right">
+         <li><a href="seeAllHikes.do?">Top Hikes</a></li>
+         <li><a href="search.html">Search</a></li>
+         <li><a href="addHike.html">Add a Hike</a></li>
+         <li><a href="editHikes.do">Update and Delete Hikes</a></li>
+       </ul>
+      </div>
+   </div>
+  </div>
+</div>
+	<div class="bground">
+
+	<div class="search">
 <c:choose>
 	  <c:when test="${! empty sortedHikes}">
      <c:forEach items="${sortedHikes}" var="hike">
-     	<h3>${hike.name}</h3>
+     	<h3 class="header">${hike.name}</h3>
        <ul>
        	  <li>${hike.name}</li>
 	      <li>${hike.difficulty}</li>
@@ -25,5 +52,8 @@
      	No hikes found.
      </c:otherwise>
      </c:choose>
+     </div>
+     <BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
+   </div>
 </body>
 </html>

@@ -9,5 +9,7 @@ public interface HikesDAO {
 	public List<Hike> getListOfHikesByDifficulty(String difficulty);
 	public void addHike(Hike hike);
 	public List<Hike> getAllHikes();
+	public void removeHike(Hike hike);
+	public void rewriteFile();
 
 }

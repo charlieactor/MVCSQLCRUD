@@ -29,6 +29,7 @@ public class HikesDaoImpl implements HikesDAO {
 				BufferedReader buf = new BufferedReader(new InputStreamReader(is));) {
 			String line = buf.readLine();
 			while ((line = buf.readLine()) != null) {
+				int counter = 1; 
 				String[] tokens = line.split(", ");
 				String name = tokens[0];
 				String difficulty = tokens[1];
@@ -36,7 +37,7 @@ public class HikesDaoImpl implements HikesDAO {
 				double distance = Double.parseDouble(tokens[3]);
 				String fact = tokens[4];
 
-				allHikes.add(new Hike(name, length, difficulty, distance, fact));
+				allHikes.add(new Hike(name, length, difficulty, distance, fact, counter++));
 			}
 
 		} catch (Exception e) {
@@ -123,7 +124,6 @@ public class HikesDaoImpl implements HikesDAO {
 		this.allHikes = allHikes;
 	}
 
-	@Override
 	public void rewriteFile() {
 		String path = wac.getServletContext().getRealPath(FILE_NAME);
 		try {

@@ -9,6 +9,7 @@
 <link type="text/css" href="HikeSiteStyles.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
 <title>Edit Hike</title>
+<link rel="shortcut icon" href="https://raygun.com/images/integrations/caagilecentral.png" type="image/x-icon" />
 </head>
 <body>
 <div class="navbar-wrapper">
@@ -64,6 +65,7 @@
 		<input type="text" name="distance" value="${hike.distanceFromDenver}"><br>
 		<p>Hike fact</p>
 		<input type="text" name="fact" value="${hike.fact}"><br><br>
+		<input type="hidden" name="id" value="${hike.id}">
 		<input type="submit" value="Update this hike">
 	</form>
 	<hr>

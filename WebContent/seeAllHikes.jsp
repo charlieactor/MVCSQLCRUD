@@ -9,6 +9,7 @@
 <link type="text/css" href="HikeSiteStyles.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
 <title>Top Hikes Near Denver</title>
+<link rel="shortcut icon" href="https://raygun.com/images/integrations/caagilecentral.png" type="image/x-icon" />
 </head>
 <body>
 <div class="navbar-wrapper">

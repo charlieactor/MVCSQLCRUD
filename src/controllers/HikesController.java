@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import data.Hike;
-import data.HikesDAO;
-import data.HikesDaoImpl;
+import data.HikesDaoDBImpl;
 
 @Controller
 @SessionAttributes("allHikes")
 public class HikesController {
 	@Autowired
-	private HikesDAO dao;
-	
+	private HikesDaoDBImpl dao = new HikesDaoDBImpl();
+
 	@ModelAttribute("allHikes")
-	public List<Hike> initAllHikes(){
+	public List<Hike> initAllHikes() {
 		return dao.getAllHikes();
 	}
 
@@ -38,74 +38,72 @@ public class HikesController {
 	public ModelAndView seeAllHikes(@ModelAttribute("allHikes") List<Hike> hikes) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("seeAllHikes.jsp");
-		mv.addObject("allHikes", hikes);
+		mv.addObject("allHikes", dao.getAllHikes());
 		return mv;
 	}
 
-	@RequestMapping(path = "route.do", params = "length", method=RequestMethod.GET)
+	@RequestMapping(path = "route.do", params = "length", method = RequestMethod.GET)
 	public ModelAndView getHikesByLength(@RequestParam("length") String lengthStr) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("sortedHikes.jsp");
 		double length;
-		if (lengthStr != null && ! lengthStr.equals("")) {
+		if (lengthStr != null && !lengthStr.equals("")) {
 			length = Double.parseDouble(lengthStr);
-		}
-		else {
+		} else {
 			length = 0;
 		}
 		mv.addObject("sortedHikes", dao.getListOfHikesByLength(length));
 		return mv;
 	}
-	
-	@RequestMapping(path = "route.do", params = "difficulty", method=RequestMethod.POST)
+
+	@RequestMapping(path = "route.do", params = "difficulty", method = RequestMethod.GET)
 	public ModelAndView getHikesByDifficulty(@RequestParam("difficulty") String difficulty) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("sortedHikes.jsp");
 		if (difficulty == null) {
 			difficulty = "";
 		}
-		
+
 		mv.addObject("sortedHikes", dao.getListOfHikesByDifficulty(difficulty));
 		return mv;
-	
+
 	}
-	
-	@RequestMapping(path = "route.do", params = "distance", method=RequestMethod.GET)
+
+	@RequestMapping(path = "route.do", params = "distance", method = RequestMethod.GET)
 	public ModelAndView getHikesByDistance(@RequestParam("distance") String distanceStr) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("sortedHikes.jsp");
 		double distance;
-		if (distanceStr != null && ! distanceStr.equals("")) {
+		if (distanceStr != null && !distanceStr.equals("")) {
 			distance = Double.parseDouble(distanceStr);
-		}
-		else {
+		} else {
 			distance = 0;
 		}
 		mv.addObject("sortedHikes", dao.getListOfHikesByDistanceFromDenver(distance));
 		return mv;
 	}
-	
-	@RequestMapping(path = "route.do", params = {"name", "difficulty", "length", "distanceFromDenver", "fact"}, method=RequestMethod.POST)
-	public ModelAndView addHike(@RequestParam("name") String name, @RequestParam("difficulty") String difficulty, @RequestParam("length") String lengthStr, @RequestParam("distanceFromDenver") String distanceStr, @RequestParam("fact") String fact) {
+
+	@RequestMapping(path = "route.do", params = { "name", "difficulty", "length", "distanceFromDenver",
+			"fact" }, method = RequestMethod.POST)
+	public ModelAndView addHike(@RequestParam("name") String name, @RequestParam("difficulty") String difficulty,
+			@RequestParam("length") String lengthStr, @RequestParam("distanceFromDenver") String distanceStr,
+			@RequestParam("fact") String fact, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:seeAllHikes.do");
 		double length;
 		double distance;
-		if (lengthStr != null && ! lengthStr.equals("")) {
+		if (lengthStr != null && !lengthStr.equals("")) {
 			length = Double.parseDouble(lengthStr);
-		}
-		else {
+		} else {
 			length = 0;
 		}
-		if (distanceStr != null && ! distanceStr.equals("")) {
+		if (distanceStr != null && !distanceStr.equals("")) {
 			distance = Double.parseDouble(distanceStr);
-		}
-		else {
+		} else {
 			distance = 0;
 		}
-		dao.addHike(new Hike(name, length, difficulty, distance, fact));
-		dao.rewriteFile();
-		mv.addObject("hike", dao.getHikeByName(name));
+		dao.addHike(new Hike(name, length, difficulty, distance, fact, 0));
+		redir.addFlashAttribute("hike", dao.getHikeByName(name));
+		mv.setViewName("redirect:seeAllHikes.do");
 		return mv;
 	}
 
@@ -116,7 +114,7 @@ public class HikesController {
 		mv.addObject("allHikes", hikes);
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "editSingleHike.do", params = "hikeToEdit", method = RequestMethod.GET)
 	public ModelAndView editSingleHike(@RequestParam("hikeToEdit") String hike) {
 		ModelAndView mv = new ModelAndView();
@@ -124,41 +122,39 @@ public class HikesController {
 		mv.addObject("hike", dao.getHikeByName(hike));
 		return mv;
 	}
-	
-	@RequestMapping(path = "updateHike.do", params = {"name", "difficulty", "length", "distance", "fact"}, method = RequestMethod.POST)
-	public ModelAndView editSingleHike(@RequestParam("name") String name, @RequestParam("difficulty") String difficulty, @RequestParam("length") String lengthStr, @RequestParam("distance") String distanceStr, @RequestParam("fact") String fact) {
+
+	@RequestMapping(path = "updateHike.do", params = { "name", "difficulty", "length", "distance", "fact",
+			"id" }, method = RequestMethod.POST)
+	public ModelAndView editSingleHike(@RequestParam("name") String name, @RequestParam("difficulty") String difficulty,
+			@RequestParam("length") String lengthStr, @RequestParam("distance") String distanceStr,
+			@RequestParam("fact") String fact, @RequestParam("id") int id, RedirectAttributes redir) {
 		double length, distance;
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:seeAllHikes.do");
-		Hike editedHike = dao.getHikeByName(name);
-		dao.removeHike(editedHike);
-		if (lengthStr != null && ! lengthStr.equals("")) {
+		if (lengthStr != null && !lengthStr.equals("")) {
 			length = Double.parseDouble(lengthStr);
-		}
-		else {
+		} else {
 			length = 0;
 		}
-		if (distanceStr != null && ! distanceStr.equals("")) {
+		if (distanceStr != null && !distanceStr.equals("")) {
 			distance = Double.parseDouble(distanceStr);
-		}
-		else {
+		} else {
 			distance = 0;
 		}
-		Hike updatedHike = new Hike(name, length, difficulty, distance, fact);
-	dao.addHike(updatedHike);
-	dao.rewriteFile();
-	mv.addObject("hike", updatedHike);
-	return mv;	
-	}
-	
-	@RequestMapping(path = "deleteHike.do", params = "name", method = RequestMethod.POST)
-	public ModelAndView deleteHike(@RequestParam("name")String name, @ModelAttribute("allHikes") List<Hike> hikes) {
-		ModelAndView mv = new ModelAndView();
-		dao.removeHike(dao.getHikeByName(name));
-		dao.rewriteFile();
+		Hike updatedHike = new Hike(name, length, difficulty, distance, fact, id);
+		dao.updateHike(updatedHike);
+		redir.addFlashAttribute("hike", updatedHike);
 		mv.setViewName("redirect:seeAllHikes.do");
-		mv.addObject("allHikes", hikes);
 		return mv;
 	}
-	
+
+	@RequestMapping(path = "deleteHike.do", params = "name", method = RequestMethod.POST)
+	public ModelAndView deleteHike(@RequestParam("name") String name, @ModelAttribute("allHikes") List<Hike> hikes,
+			RedirectAttributes redir) {
+		ModelAndView mv = new ModelAndView();
+		dao.removeHike(dao.getHikeByName(name));
+		mv.setViewName("redirect:seeAllHikes.do");
+		redir.addFlashAttribute("allHikes", hikes);
+		return mv;
+	}
+
 }

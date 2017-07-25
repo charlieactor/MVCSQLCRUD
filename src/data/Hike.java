@@ -6,17 +6,35 @@ public class Hike {
 	private String difficulty;
 	private double distanceFromDenver;
 	private String fact;
+	private int Id;
 	
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
+	}
+
+	public void setLength(double length) {
+		this.length = length;
+	}
+
+	public void setDistanceFromDenver(double distanceFromDenver) {
+		this.distanceFromDenver = distanceFromDenver;
+	}
+
 	public Hike() {
 	}
 	
-	public Hike(String name, double length, String difficulty, double distanceFromDenver, String fact) {
+	public Hike(String name, double length, String difficulty, double distanceFromDenver, String fact, int id) {
 		super();
 		this.name = name;
 		this.length = length;
 		this.difficulty = difficulty;
 		this.distanceFromDenver = distanceFromDenver;
 		this.fact = fact;
+		this.Id = id;
 	}
 	public String getName() {
 		return name;

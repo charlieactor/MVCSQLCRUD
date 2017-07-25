@@ -10,6 +10,5 @@ public interface HikesDAO {
 	public void addHike(Hike hike);
 	public List<Hike> getAllHikes();
 	public void removeHike(Hike hike);
-	public void rewriteFile();
 
 }

@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hike Results</title>
+<link rel="shortcut icon" href="https://raygun.com/images/integrations/caagilecentral.png" type="image/x-icon" />
 
 </head>
 <body>

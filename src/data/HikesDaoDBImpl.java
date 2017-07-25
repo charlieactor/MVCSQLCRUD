@@ -189,6 +189,13 @@ public class HikesDaoDBImpl implements HikesDAO {
 			String sql = "DELETE FROM hike WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, hike.getId());
+			try {
+				String sql2 = "DELETE FROM picture WHERE hike_id = ?";
+				PreparedStatement stmt2 = conn.prepareStatement(sql2);
+				stmt.setInt(1,  hike.getId());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			stmt.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
@@ -205,12 +212,33 @@ public class HikesDaoDBImpl implements HikesDAO {
 
 	}
 	
+	public List<String> getPicturesForHike(Hike hike) {
+		List<String> pictures = new ArrayList<>();
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT DISTINCT p.file_path FROM picture p JOIN hike h ON p.Hike_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, hike.getId());
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				pictures.add(rs.getString(1));
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		return pictures;
+	}
+	
 	public void updateHike(Hike hike) {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "UPDATE hike SET name = ?, difficulty = ?, length = ? distance_from_city = ?, fact = ? WHERE id = ?";
+			String sql = "UPDATE hike SET name = ?, difficulty = ?, length = ?, distance_from_city = ?, fact = ? WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, hike.getName());
 			stmt.setString(2, hike.getDifficulty());
@@ -232,5 +260,18 @@ public class HikesDaoDBImpl implements HikesDAO {
 			} throw new RuntimeException("Error updating hike id " + hike.getId());
 		}
 	}
-
+	
+	public void addPicture(int id, String picture) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			String sql = "INSERT INTO picture (file_path, Hike_id) VALUES (?, ?);";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, picture);
+			stmt.setInt(2, id);
+			stmt.executeUpdate();
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+	}
 }

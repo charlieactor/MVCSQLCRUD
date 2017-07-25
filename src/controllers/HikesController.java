@@ -31,6 +31,7 @@ public class HikesController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("HikesView.jsp");
 		mv.addObject("hike", dao.getHikeByName(name));
+		mv.addObject("pictures", dao.getPicturesForHike(dao.getHikeByName(name)));
 		return mv;
 	}
 
@@ -84,10 +85,10 @@ public class HikesController {
 	}
 
 	@RequestMapping(path = "route.do", params = { "name", "difficulty", "length", "distanceFromDenver",
-			"fact" }, method = RequestMethod.POST)
+			"fact", "picture" }, method = RequestMethod.POST)
 	public ModelAndView addHike(@RequestParam("name") String name, @RequestParam("difficulty") String difficulty,
 			@RequestParam("length") String lengthStr, @RequestParam("distanceFromDenver") String distanceStr,
-			@RequestParam("fact") String fact, RedirectAttributes redir) {
+			@RequestParam("fact") String fact, @RequestParam("picture") String picture, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 		double length;
 		double distance;
@@ -101,7 +102,9 @@ public class HikesController {
 		} else {
 			distance = 0;
 		}
-		dao.addHike(new Hike(name, length, difficulty, distance, fact, 0));
+		Hike h = new Hike(name, length, difficulty, distance, fact, 0);
+		dao.addHike(h);
+		dao.addPicture(h.getId(), picture);
 		redir.addFlashAttribute("hike", dao.getHikeByName(name));
 		mv.setViewName("redirect:seeAllHikes.do");
 		return mv;

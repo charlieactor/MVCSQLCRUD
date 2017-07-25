@@ -64,7 +64,17 @@
   src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD3DbeUZ_Rhm0gDXENEV1ILJQrHUzVPtfM
     &q=${hike.name}, Denver+CO" allowfullscreen>
 </iframe>
+	  </div>
+	  <p><br><br><br></p>
+	  <div class="col-md-4" id="hikepic">
+	  	<c:forEach items="${pictures}" var="picture">
+	  	   <img src="${picture}" />
+	  	</c:forEach>
+	  </div>
 	  
+	  <div class="col-md-4">
+	  </div>
+	  <div class="col-md-4">
 	  </div>
 	</div>
 	<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>

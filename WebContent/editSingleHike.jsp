@@ -65,6 +65,8 @@
 		<input type="text" name="distance" value="${hike.distanceFromDenver}"><br>
 		<p>Hike fact</p>
 		<input type="text" name="fact" value="${hike.fact}"><br><br>
+		<p>Add another picture for this hike: </p>
+		<input type="text" name="picture" placeholder="Enter picture URL here"><br><br>
 		<input type="hidden" name="id" value="${hike.id}">
 		<input type="submit" value="Update this hike">
 	</form>

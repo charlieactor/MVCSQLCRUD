@@ -66,20 +66,41 @@
 </iframe>
 	  </div>
 	  <p><br><br><br></p>
-	  <div class="col-md-4" id="hikepic">
-	  	<c:forEach items="${pictures}" var="picture">
+	  <div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+  <div id="imageCarousel" class="carousel slide" data-interval="3000">
+    <ol class="carousel-indicators">
+    	  <c:forEach items="${pictures}" var = "picture">
+      <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+      </c:forEach>
+    </ol>
+      <div class="carousel-inner">
+
+        <c:forEach items="${pictures}" var="picture">
+        <div class="item active">
 	  	   <img src="${picture}" />
 	  	</c:forEach>
-	  </div>
-	  
-	  <div class="col-md-4">
-	  </div>
-	  <div class="col-md-4">
-	  </div>
+          
+      </div> 
+
+
+  </div>
+  <a href="#imageCarousel" class="carousel-control left" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a href="#imageCarousel" class="carousel-control right" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+</div>
+</div>
+</div>
+
 	</div>
 	<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
-	<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
-	<BR><BR><BR><BR><BR>
+	<BR><BR>
 	</div>
 </body>
 </html>

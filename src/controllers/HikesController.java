@@ -127,10 +127,10 @@ public class HikesController {
 	}
 
 	@RequestMapping(path = "updateHike.do", params = { "name", "difficulty", "length", "distance", "fact",
-			"id" }, method = RequestMethod.POST)
+			"id", "picture" }, method = RequestMethod.POST)
 	public ModelAndView editSingleHike(@RequestParam("name") String name, @RequestParam("difficulty") String difficulty,
 			@RequestParam("length") String lengthStr, @RequestParam("distance") String distanceStr,
-			@RequestParam("fact") String fact, @RequestParam("id") int id, RedirectAttributes redir) {
+			@RequestParam("fact") String fact, @RequestParam("id") int id, @RequestParam("picture") String picture, RedirectAttributes redir) {
 		double length, distance;
 		ModelAndView mv = new ModelAndView();
 		if (lengthStr != null && !lengthStr.equals("")) {
@@ -145,6 +145,9 @@ public class HikesController {
 		}
 		Hike updatedHike = new Hike(name, length, difficulty, distance, fact, id);
 		dao.updateHike(updatedHike);
+		if (picture != null && !picture.equals("")) {
+			dao.addPicture(updatedHike.getId(), picture);
+		}
 		redir.addFlashAttribute("hike", updatedHike);
 		mv.setViewName("redirect:seeAllHikes.do");
 		return mv;

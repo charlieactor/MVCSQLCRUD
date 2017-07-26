@@ -192,7 +192,8 @@ public class HikesDaoDBImpl implements HikesDAO {
 			try {
 				String sql2 = "DELETE FROM picture WHERE hike_id = ?";
 				PreparedStatement stmt2 = conn.prepareStatement(sql2);
-				stmt.setInt(1,  hike.getId());
+				stmt2.setInt(1,  hike.getId());
+				stmt2.executeUpdate();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
